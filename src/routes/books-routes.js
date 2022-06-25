@@ -6,10 +6,10 @@ import BookController from '../controllers/books-controller.js'
 
 const bookController = new BookController()
 
-router.delete('/', (req, res) => {
-    res.send('Hello Elisa')
+router.delete('/id/:_id', (req, res) => {
+    bookController.deleteBook(req)
+    .then(book => res.status(200).send(book))
 })
-
 
 router.put('/id/:_id', (req, res) => {
     bookController.updateBook(req)

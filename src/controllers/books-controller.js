@@ -15,6 +15,11 @@ class BookController {
         const bookService = new BookService()
         return bookService.updateBook(req)
     }
+
+    deleteBook (req, res) {
+        const bookService = new BookService()
+        return bookService.deleteBook(req)
+    }
 }
 
 export default BookController

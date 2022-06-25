@@ -18,6 +18,10 @@ class BookService {
     updateBook(req, res) {
         return Book.findByIdAndUpdate({_id: req.params._id}, req.body)
     }
+
+    deleteBook(req, res) {
+        return Book.findByIdAndDelete({_id: req.params._id})
+    }
 }
 
 export default BookService
