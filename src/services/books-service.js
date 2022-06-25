@@ -10,9 +10,13 @@ class BookService {
         return Book.find()
     }
 
-    async registerBook(req, res) {
+    registerBook(req, res) {
         const newBook = new Book(req.body)
         return newBook.save()
+    }
+
+    updateBook(req, res) {
+        return Book.findByIdAndUpdate({_id: req.params._id}, req.body)
     }
 }
 

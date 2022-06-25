@@ -10,12 +10,10 @@ router.delete('/', (req, res) => {
     res.send('Hello Elisa')
 })
 
-router.patch('/', (req, res) => {
-    res.send('Hello Elisa')
-})
 
-router.put('/', (req, res) => {
-    res.send('Hello Elisa')
+router.put('/id/:_id', (req, res) => {
+    bookController.updateBook(req)
+    .then(book => res.status(200).send(book))
 })
 
 router.post('/', (req, res) => {

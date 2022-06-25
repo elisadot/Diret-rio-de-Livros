@@ -10,6 +10,11 @@ class BookController {
         const bookService = new BookService()
         return bookService.registerBook(req)
     }
+
+    updateBook(req, res) {
+        const bookService = new BookService()
+        return bookService.updateBook(req)
+    }
 }
 
 export default BookController
