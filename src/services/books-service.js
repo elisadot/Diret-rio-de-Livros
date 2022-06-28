@@ -6,8 +6,12 @@ mongoose.connect(config)
 import Book from '../models/books-models.js'
 
 class BookService {
-    searchBooks() {
-        return Book.find()
+    searchBooks(params) {
+        if (params !== undefined && params !== null) {
+            return Book.find(params)
+        } else {
+            return Book.find({})           
+        }
     }
 
     registerBook(req, res) {

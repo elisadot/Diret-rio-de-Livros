@@ -21,8 +21,13 @@ router.post('/', (req, res) => {
     .then(book => res.status(200).send(book))
 })
 
+router.get('/id/:_id', (req, res) => {
+    bookController.searchBooks(req.params)
+    .then(book => res.status(200).send(book))
+})
+
 router.get('/', (req, res) => {
-    bookController.searchBooks()
+    bookController.searchBooks(req.query)
     .then(book => res.status(200).send(book))
 })
 

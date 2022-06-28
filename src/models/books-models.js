@@ -22,18 +22,22 @@ const schema = new Schema({
         type: Date,
         required: true,
         trim: true,
+        min: 1400,
+        max: Date.now
     },
     isbn: {
         type: String,
         required: true,
         trim: true,
         unique: true,
+        match: /^[0-9]{13}$/
     },
     description: {
         type: String,
         required: true,
         trim: true
-    }
+    } 
 })
+
 
 export default mongoose.model('Book', schema)
