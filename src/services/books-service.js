@@ -6,12 +6,23 @@ mongoose.connect(config)
 import Book from '../models/books-models.js'
 
 class BookService {
-    searchBooks(params) {
-        if (params !== undefined && params !== null) {
-            return Book.find(params)
+    async searchBooks(params, res) {
+        if (params !== undefined && params !== null && Object.values(params).length !== 0) {
+            Book.find(params).exec(function (err, response) {
+                if (err) {
+                    return res.status(400).send({message: `ID it's out of the norm`});
+                } 
+                else if (Object.values(response).length == 0) {
+                    return res.status(404).send({message: `ID not found in database`});
+                } 
+                else {
+                    return res.status(200).json(response)
+                }
+            })
         } else {
-            return Book.find({})           
-        }
+            const response = await Book.find({})
+            return res.status(200).json(response)
+        }        
     }
 
     registerBook(req, res) {

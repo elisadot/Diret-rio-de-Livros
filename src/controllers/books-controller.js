@@ -1,9 +1,9 @@
 import BookService from '../services/books-service.js'
 
 class BookController {
-    searchBooks(params) {
+    searchBooks(params, res) {
         const bookService = new BookService()
-        return bookService.searchBooks(params)
+        return bookService.searchBooks(params, res)
     }    
 
     registerBook(req, res) {
