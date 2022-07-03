@@ -30,7 +30,8 @@ const schema = new Schema({
         required: true,
         trim: true,
         unique: true,
-        match: /^[0-9]{13}$/
+        match: /^[0-9]{13}$/,
+        immutable: true
     },
     description: {
         type: String,

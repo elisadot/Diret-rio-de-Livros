@@ -8,17 +8,17 @@ class BookController {
 
     registerBook(req, res) {
         const bookService = new BookService()
-        return bookService.registerBook(req)
+        return bookService.registerBook(req, res)
     }
 
     updateBook(req, res) {
         const bookService = new BookService()
-        return bookService.updateBook(req)
+        return bookService.updateBook(req, res)
     }
 
     deleteBook (req, res) {
         const bookService = new BookService()
-        return bookService.deleteBook(req)
+        return bookService.deleteBook(req, res)
     }
 }
 
