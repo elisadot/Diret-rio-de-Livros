@@ -14,12 +14,24 @@ router.put('/id/:_id', (req, res) => {bookController.updateBook(req, res)})
 
 router.get('/id/:_id', (req, res) => {bookController.searchBooks(req.params, res)})
 
-router.get('/', (req, res) => {bookController.searchBooks(req.query, res)})
+router.get('/', verifyJWT, (req, res) => {bookController.searchBooks(req.query, res)})
 
 router.put('*', (req, res) => {(res.status(404).send('Page not found'))})
 router.post('*', (req, res) => {(res.status(404).send('Page not found'))})
 router.delete('*', (req, res) => {(res.status(404).send('Page not found'))})
 router.get('*', (req, res) => {(res.status(404).send('Page not found'))})
 
+function verifyJWT(req, res, next){
+    const token = req.headers['x-access-token'];
+    if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
+    
+    jwt.verify(token, process.env.SECRET, function(err, decoded) {
+      if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+      
+      // se tudo estiver ok, salva no request para uso posterior
+      req.userId = decoded.id;
+      next();
+    });
+}
 
 export default router
