@@ -1,4 +1,5 @@
 import express from 'express'
+import jwt from "jsonwebtoken"
 
 const router = express.Router()
 
@@ -22,13 +23,17 @@ router.delete('*', (req, res) => {(res.status(404).send('Page not found'))})
 router.get('*', (req, res) => {(res.status(404).send('Page not found'))})
 
 function verifyJWT(req, res, next){
-    const token = req.headers['x-access-token'];
+    const token = req.headers['x-access-token']
+
     if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
     
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
-      if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+      if (err) {
+        return res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
+      } else {
+        req.decoded = decoded
+      }
       
-      // se tudo estiver ok, salva no request para uso posterior
       req.userId = decoded.id;
       next();
     });
